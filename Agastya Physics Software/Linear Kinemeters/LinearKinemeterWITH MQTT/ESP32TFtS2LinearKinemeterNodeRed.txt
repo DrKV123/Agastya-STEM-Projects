@@ -1,0 +1,612 @@
+[
+    {
+        "id": "70a233626e462eba",
+        "type": "tab",
+        "label": "Linear Kinematics",
+        "disabled": false,
+        "info": "# ",
+        "env": []
+    },
+    {
+        "id": "1ecd934757dbbde9",
+        "type": "mqtt in",
+        "z": "70a233626e462eba",
+        "name": "",
+        "topic": "postime",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8bb1e943.340af8",
+        "inputs": 0,
+        "x": 250,
+        "y": 300,
+        "wires": [
+            [
+                "909191d4f20ea4ba"
+            ]
+        ]
+    },
+    {
+        "id": "1356171bd8fd5afc",
+        "type": "ui_text",
+        "z": "70a233626e462eba",
+        "group": "e8496de3.6b361",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "At Sensor 1",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1130,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "909191d4f20ea4ba",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Parse IR Sensor data",
+        "func": "//var count = context.get('count')||0;\n//msg.payload = msg.payload+count;\nmsg.payload = msg.payload.split(\";\")\n//count +=1;\n//context.set('count', count)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 320,
+        "wires": [
+            [
+                "1176c1a86f7d01e7",
+                "ab1a991747041a8e",
+                "d026f46cb9adc972",
+                "8db761d68fc8dee6"
+            ]
+        ]
+    },
+    {
+        "id": "1176c1a86f7d01e7",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract, Split and Format: Time & Pos Sensor 1",
+        "func": "var x = msg.payload[0].split(\",\");\nmsg.payload = x[0] + \"s, \" + x[1]+\"cm\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 240,
+        "wires": [
+            [
+                "1356171bd8fd5afc"
+            ]
+        ]
+    },
+    {
+        "id": "ee2e5d10c441d914",
+        "type": "ui_text",
+        "z": "70a233626e462eba",
+        "group": "e8496de3.6b361",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "At Sensor 2",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1150,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ab1a991747041a8e",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract, Split and Format: Time & Pos Sensor 2",
+        "func": "var x = msg.payload[1].split(\",\");\nmsg.payload = x[0] + \"s, \" + x[1]+\"cm\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 280,
+        "wires": [
+            [
+                "ee2e5d10c441d914"
+            ]
+        ]
+    },
+    {
+        "id": "3f93e8346c33a422",
+        "type": "ui_text",
+        "z": "70a233626e462eba",
+        "group": "e8496de3.6b361",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "At Sensor 3",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1150,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d026f46cb9adc972",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract, Split and Format: Time & Pos Sensor  3",
+        "func": "var x = msg.payload[2].split(\",\");\nmsg.payload = x[0] + \"s, \" + x[1]+\"cm\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 820,
+        "y": 320,
+        "wires": [
+            [
+                "3f93e8346c33a422"
+            ]
+        ]
+    },
+    {
+        "id": "0cba0b1613f07747",
+        "type": "ui_text",
+        "z": "70a233626e462eba",
+        "group": "e8496de3.6b361",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "At  Sensor 4",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1150,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8db761d68fc8dee6",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract, Split and Format: Time & Pos Sensor  4",
+        "func": "var x = msg.payload[3].split(\",\");\nmsg.payload = x[0] + \"s, \" + x[1]+\"cm\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 820,
+        "y": 360,
+        "wires": [
+            [
+                "0cba0b1613f07747"
+            ]
+        ]
+    },
+    {
+        "id": "ce5eed3602139562",
+        "type": "mqtt in",
+        "z": "70a233626e462eba",
+        "name": "",
+        "topic": "veltime",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8bb1e943.340af8",
+        "inputs": 0,
+        "x": 250,
+        "y": 520,
+        "wires": [
+            [
+                "d6057c70d2f10452"
+            ]
+        ]
+    },
+    {
+        "id": "2ce33b3df55a6494",
+        "type": "ui_text",
+        "z": "70a233626e462eba",
+        "group": "dca8645e.c7c208",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "name": "",
+        "label": "Between Sensors 1&2",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1180,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "d6057c70d2f10452",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Convert Stg Payload to Array",
+        "func": "msg.payload = msg.payload.split(\";\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 520,
+        "wires": [
+            [
+                "fc6dd2e499d2c7ee",
+                "7feb3ab32364dafe",
+                "8336f0fc91fde5a6"
+            ]
+        ]
+    },
+    {
+        "id": "fc6dd2e499d2c7ee",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract, Split and Format: Time and Inst Vel 1",
+        "func": "var x = msg.payload[0].split(\",\");\nmsg.payload = x[0] + \"s, \" + x[1]+\"cm/s\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 480,
+        "wires": [
+            [
+                "2ce33b3df55a6494"
+            ]
+        ]
+    },
+    {
+        "id": "32885240c9ece8ce",
+        "type": "ui_text",
+        "z": "70a233626e462eba",
+        "group": "dca8645e.c7c208",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Between Sensors  2&3",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1180,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "7feb3ab32364dafe",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract, Split and Format: Time and Inst Vel 2",
+        "func": "var x = msg.payload[1].split(\",\");\nmsg.payload = x[0] + \"s, \" + x[1]+\"cm/s\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 520,
+        "wires": [
+            [
+                "32885240c9ece8ce"
+            ]
+        ]
+    },
+    {
+        "id": "a4ee3321e55a53a8",
+        "type": "ui_text",
+        "z": "70a233626e462eba",
+        "group": "dca8645e.c7c208",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Between (Sensors 2&3",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1180,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "8336f0fc91fde5a6",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract, Split and Format: Time and Inst Vel  3",
+        "func": "var x = msg.payload[2].split(\",\");\nmsg.payload = x[0] + \"s, \" + x[1]+\"cm/s\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 560,
+        "wires": [
+            [
+                "a4ee3321e55a53a8"
+            ]
+        ]
+    },
+    {
+        "id": "d89de804441767d6",
+        "type": "mqtt in",
+        "z": "70a233626e462eba",
+        "name": "",
+        "topic": "accs",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8bb1e943.340af8",
+        "inputs": 0,
+        "x": 250,
+        "y": 700,
+        "wires": [
+            [
+                "efa94512ba02ca38"
+            ]
+        ]
+    },
+    {
+        "id": "c8e59422b2c5df71",
+        "type": "ui_text",
+        "z": "70a233626e462eba",
+        "group": "ac960a4e.be5278",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "name": "",
+        "label": "Between Vel1 & Vel2",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1180,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "efa94512ba02ca38",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Convert Stg Payload to Array",
+        "func": "msg.payload = msg.payload.split(\";\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 700,
+        "wires": [
+            [
+                "a25262ee761d4056",
+                "21ec6b8111702862",
+                "289d5d7a098ac897"
+            ]
+        ]
+    },
+    {
+        "id": "a25262ee761d4056",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract and Format Acc1",
+        "func": "msg.payload = msg.payload[0] + \"cm/s/s\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 660,
+        "wires": [
+            [
+                "c8e59422b2c5df71"
+            ]
+        ]
+    },
+    {
+        "id": "4651e5179a1a82aa",
+        "type": "ui_text",
+        "z": "70a233626e462eba",
+        "group": "ac960a4e.be5278",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "Between Vel2 & Vel3",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1180,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "21ec6b8111702862",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract and Format Acc 2",
+        "func": "msg.payload = msg.payload[1]+\"cm/s/s\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 700,
+        "wires": [
+            [
+                "4651e5179a1a82aa"
+            ]
+        ]
+    },
+    {
+        "id": "289d5d7a098ac897",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract Avg Acc",
+        "func": "msg.payload = msg.payload[2]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 720,
+        "y": 740,
+        "wires": [
+            [
+                "d92b79466776d35d"
+            ]
+        ]
+    },
+    {
+        "id": "d92b79466776d35d",
+        "type": "ui_gauge",
+        "z": "70a233626e462eba",
+        "name": "Gauge Name",
+        "group": "481aa1e39fe9fccf",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Average Acceleration",
+        "label": "cm/s/s",
+        "format": "{{value}}",
+        "min": "-30",
+        "max": "300",
+        "colors": [
+            "#b30000",
+            "#e6e600",
+            "#00db54"
+        ],
+        "seg1": "0",
+        "seg2": "300",
+        "className": "",
+        "x": 1170,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "f62e8c7ae3fb804c",
+        "type": "ui_text",
+        "z": "70a233626e462eba",
+        "group": "995e2b452064878e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Experiment #:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1180,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "560514c4c288cd58",
+        "type": "function",
+        "z": "70a233626e462eba",
+        "name": "Extract Experiment No",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 160,
+        "wires": [
+            [
+                "f62e8c7ae3fb804c"
+            ]
+        ]
+    },
+    {
+        "id": "bd1f2b227a623f9b",
+        "type": "mqtt in",
+        "z": "70a233626e462eba",
+        "name": "",
+        "topic": "expnumber",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8bb1e943.340af8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 160,
+        "wires": [
+            [
+                "560514c4c288cd58"
+            ]
+        ]
+    },
+    {
+        "id": "8bb1e943.340af8",
+        "type": "mqtt-broker",
+        "name": "Host",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "e8496de3.6b361",
+        "type": "ui_group",
+        "name": "Sensor Crossing Times",
+        "tab": "e5898c665c2a86f6",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dca8645e.c7c208",
+        "type": "ui_group",
+        "name": "Time & Inst Velocity",
+        "tab": "e5898c665c2a86f6",
+        "order": 2,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ac960a4e.be5278",
+        "type": "ui_group",
+        "name": "AVG Accelerations",
+        "tab": "e5898c665c2a86f6",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "481aa1e39fe9fccf",
+        "type": "ui_group",
+        "name": "OVERALL AVG Accels",
+        "tab": "e5898c665c2a86f6",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "995e2b452064878e",
+        "type": "ui_group",
+        "name": "Current Expt Number ",
+        "tab": "e5898c665c2a86f6",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e5898c665c2a86f6",
+        "type": "ui_tab",
+        "name": "Linear Kinematics",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

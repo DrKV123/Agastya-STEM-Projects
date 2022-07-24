@@ -1,0 +1,346 @@
+[
+    {
+        "id": "401214fa0ffb21d3",
+        "type": "tab",
+        "label": "Accelerometer",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "33d369a99bfdfef1",
+        "type": "mqtt in",
+        "z": "401214fa0ffb21d3",
+        "name": "",
+        "topic": "c_acc",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8bb1e943.340af8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 400,
+        "wires": [
+            [
+                "1b5be32d11bf5030"
+            ]
+        ]
+    },
+    {
+        "id": "1b5be32d11bf5030",
+        "type": "function",
+        "z": "401214fa0ffb21d3",
+        "name": "parse Accelerometer output",
+        "func": "\nmsg.payload = msg.payload.split(\";\")\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 240,
+        "wires": [
+            [
+                "dccb476ef788ae06",
+                "ca8902a5b2dcd1ed",
+                "a158b534dbc23034",
+                "0fff78c9d41c121a"
+            ]
+        ]
+    },
+    {
+        "id": "dccb476ef788ae06",
+        "type": "function",
+        "z": "401214fa0ffb21d3",
+        "name": "Extract X-Acceleration",
+        "func": "var x = msg.payload[0];\nmsg.payload = x+ \" m/sec^2\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 100,
+        "wires": [
+            [
+                "1fdf8c9e78b77c57"
+            ]
+        ]
+    },
+    {
+        "id": "1fdf8c9e78b77c57",
+        "type": "ui_text",
+        "z": "401214fa0ffb21d3",
+        "group": "8e8e789ae51c5caf",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "X-Acc",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1210,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ca8902a5b2dcd1ed",
+        "type": "function",
+        "z": "401214fa0ffb21d3",
+        "name": "Extract Y-Acceleration",
+        "func": "\nvar x = msg.payload[1];\nmsg.payload = x+ \" m/sec^2\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 240,
+        "wires": [
+            [
+                "32852fc03f7e919c"
+            ]
+        ]
+    },
+    {
+        "id": "a158b534dbc23034",
+        "type": "function",
+        "z": "401214fa0ffb21d3",
+        "name": "Extract Z-Acceleration",
+        "func": "\nvar x = msg.payload[2];\nmsg.payload = x+ \" m/sec^2\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 360,
+        "wires": [
+            [
+                "31663723ec855c8c"
+            ]
+        ]
+    },
+    {
+        "id": "32852fc03f7e919c",
+        "type": "ui_text",
+        "z": "401214fa0ffb21d3",
+        "group": "df50c96621fd6d9c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Y-Acc",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1230,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "31663723ec855c8c",
+        "type": "ui_text",
+        "z": "401214fa0ffb21d3",
+        "group": "9708de46bb566605",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Z-Acc",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1230,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "0fff78c9d41c121a",
+        "type": "function",
+        "z": "401214fa0ffb21d3",
+        "name": "Compute RMS of the three accelerations",
+        "func": "var x = msg.payload[0];\nvar y = msg.payload[1];\nvar z = msg.payload[2];\n\nvar t = Math.sqrt(x*x + y*y +z*z);\nmsg.payload = t;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 460,
+        "wires": [
+            [
+                "ba5b2cf78b57e824"
+            ]
+        ]
+    },
+    {
+        "id": "ba5b2cf78b57e824",
+        "type": "ui_gauge",
+        "z": "401214fa0ffb21d3",
+        "name": "SQRT(x^2+y^2+z^2)",
+        "group": "2590decdd033e6a4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "",
+        "label": "m/s^2",
+        "format": "{{value|number:2}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "30",
+        "seg2": "70",
+        "className": "",
+        "x": 1220,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "2e3b6959334b53df",
+        "type": "ui_slider",
+        "z": "401214fa0ffb21d3",
+        "name": "",
+        "label": "slider",
+        "tooltip": "",
+        "group": "88163d9300b9ef76",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "12",
+        "step": 1,
+        "className": "",
+        "x": 650,
+        "y": 600,
+        "wires": [
+            [
+                "8c2af19e6475cd1b"
+            ]
+        ]
+    },
+    {
+        "id": "8c2af19e6475cd1b",
+        "type": "ui_text",
+        "z": "401214fa0ffb21d3",
+        "group": "53f69f61ed3c59b2",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 990,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "8bb1e943.340af8",
+        "type": "mqtt-broker",
+        "name": "Host",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "8e8e789ae51c5caf",
+        "type": "ui_group",
+        "name": "X-Axis Acceleration",
+        "tab": "9c375e6ad523406f",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "df50c96621fd6d9c",
+        "type": "ui_group",
+        "name": "Y-Axis Accelerometer",
+        "tab": "9c375e6ad523406f",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9708de46bb566605",
+        "type": "ui_group",
+        "name": "Z-Acceleration",
+        "tab": "9c375e6ad523406f",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2590decdd033e6a4",
+        "type": "ui_group",
+        "name": "Total Acceleration: SQRT(x^2+y^2+z^2)",
+        "tab": "9c375e6ad523406f",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "88163d9300b9ef76",
+        "type": "ui_group",
+        "name": "Slider",
+        "tab": "9c375e6ad523406f",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "53f69f61ed3c59b2",
+        "type": "ui_group",
+        "name": "Sliderval",
+        "tab": "9c375e6ad523406f",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9c375e6ad523406f",
+        "type": "ui_tab",
+        "name": "Accelerometer",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

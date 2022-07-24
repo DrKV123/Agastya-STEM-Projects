@@ -2,7 +2,7 @@
 /****** These are WIFI Parameters */
 const char* ssid = "kvlan2017";
 const char* password = "covada6164";
-const char* mqtt_server = "192.168.1.125";
+const char* mqtt_server = "192.168.1.126";
 /****** ***** ***** ***** ***** ***** */
 
 
